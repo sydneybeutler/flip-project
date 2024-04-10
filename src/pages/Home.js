@@ -1,42 +1,37 @@
+// src/pages/Home.js
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import Header from '../components/Header'; // Make sure the path is correct
-import { Container, Typography, Button, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Container, Typography, Button, Box, Paper, Grid } from '@mui/material';
 
 const Home = () => {
-    const navigate = useNavigate(); // Initialize the useNavigate hook
+    const navigate = useNavigate();
 
     return (
-        <>
-            <Header showLoginButton={true} />
-            <Container component="main" maxWidth="md">
-                <Box sx={{ mt: 6, mb: 4, textAlign: 'center' }}>
-                    <Typography variant="h2" gutterBottom>
-                        Master Any Subject, One Flashcard At A Time
-                    </Typography>
-                    <Typography variant="h5" paragraph>
-                        Discover the best way to learn and memorize important topics with Flip!
-                    </Typography>
-                    <Button 
-                        variant="contained" 
-                        color="primary" 
-                        sx={{ mt: 3, mr: 2 }}
-                        onClick={() => navigate('/dashboard')} // Navigate to Dashboard
-                    >
-                        Dashboard
-                    </Button>
-                    <Button 
-                        variant="contained" 
-                        color="primary" 
-                        sx={{ mt: 3 }}
-                        onClick={() => navigate('/dashboard')} // Utilize useNavigate to navigate to Dashboard
-                        >
-                        Go to Dashboard
-                    </Button>
-
-                </Box>
-            </Container>
-        </>
+        <Container component="main" maxWidth="lg">
+            <Paper elevation={3} sx={{ mt: 8, py: 5, px: 2, backgroundColor: '#f5f5f5', borderRadius: '12px' }}>
+                <Grid container spacing={2} justifyContent="center" alignItems="center">
+                    <Grid item xs={12} md={6}>
+                        <Box textAlign="center">
+                            <Typography variant="h2" component="h1" gutterBottom>
+                                Master Any Subject, One Flashcard At A Time
+                            </Typography>
+                            <Typography variant="h5" sx={{ mb: 4 }}>
+                                Discover the best way to learn and memorize important topics with Flip!
+                            </Typography>
+                            <Button 
+                                variant="contained" 
+                                color="primary" 
+                                sx={{ mr: 2 }}
+                                onClick={() => navigate('/signup')}
+                            >
+                                Get Started
+                            </Button>
+                        </Box>
+                    </Grid>
+                    {/* Image or graphic section */}
+                </Grid>
+            </Paper>
+        </Container>
     );
 };
 
