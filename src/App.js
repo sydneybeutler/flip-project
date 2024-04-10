@@ -11,17 +11,16 @@ import TermsOfService from './pages/TermsOfService';
 import Study from './pages/Study';
 import CreateOrEditFlashcard from './pages/CreateOrEditFlashcard';
 import Home from './pages/Home';
-// Import your CSS file if it's not already being imported elsewhere
 import './App.css';
 
 function App() {
   return (
     <Router>
-      <div className="appContainer"> {/* Use this div to apply Flexbox styling */}
+      <div className="appContainer">
         <Header />
-        <main className="mainContent"> {/* This main tag will contain your routes and is styled to flex-grow */}
+        <main className="mainContent">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
@@ -31,7 +30,7 @@ function App() {
             <Route path="/study/:setId" element={<Study />} />
             <Route path="/create" element={<CreateOrEditFlashcard />} />
             <Route path="/edit/:id" element={<CreateOrEditFlashcard />} />
-            {/* Additional routes as per your app structure */}
+            {/* Additional routes */}
           </Routes>
         </main>
         <Footer />
