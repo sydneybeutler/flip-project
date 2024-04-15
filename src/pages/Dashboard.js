@@ -3,14 +3,14 @@ import { Container, Paper, List, ListItem, ListItemButton, ListItemText, IconBut
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import SchoolIcon from '@mui/icons-material/School'; // Import an icon for the "Study" button
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
     const [studySets, setStudySets] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch study sets from localStorage
         const loadedStudySets = JSON.parse(localStorage.getItem('studySets')) || [];
         setStudySets(loadedStudySets);
     }, []);
@@ -45,18 +45,21 @@ const Dashboard = () => {
                         <ListItem
                             key={set.id}
                             secondaryAction={
-                                <>
-                                    <IconButton edge="end" component={RouterLink} to={`/edit/${set.id}`} aria-label="edit">
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <IconButton edge="end" onClick={() => navigate(`/study/${set.id}`)} aria-label="study">
+                                        <SchoolIcon />
+                                    </IconButton>
+                                    <IconButton edge="end" onClick={() => navigate(`/edit/${set.id}`)} aria-label="edit">
                                         <EditIcon />
                                     </IconButton>
                                     <IconButton edge="end" onClick={() => handleDelete(set.id)} aria-label="delete">
                                         <DeleteIcon />
                                     </IconButton>
-                                </>
+                                </Box>
                             }
                             disablePadding
                         >
-                            <ListItemButton onClick={() => navigate(`/study/${set.id}`)}>
+                            <ListItemButton>
                                 <ListItemText primary={set.title} secondary={`Cards: ${set.cards.length}`} />
                             </ListItemButton>
                         </ListItem>
