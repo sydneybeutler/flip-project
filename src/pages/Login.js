@@ -1,6 +1,6 @@
-// src/pages/Login.js
 import React, { useState } from 'react';
-import { Container, Typography, TextField, Button, Box, Link, Paper } from '@mui/material';
+import { Container, Typography, TextField, Button, Box, Link, Paper, Alert } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header'; // Make sure the path is correct
 
 const Login = () => {
@@ -8,6 +8,8 @@ const Login = () => {
         emailOrPhone: '',
         password: '',
     });
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         setCredentials({
@@ -16,11 +18,31 @@ const Login = () => {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Here you would handle the login logic
-        console.log(credentials);
-        // After successful login, you might navigate to the dashboard or show an error
+        try {
+            const response = await fetch('http://your-django-api-url/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    emailOrPhone: credentials.emailOrPhone,
+                    password: credentials.password,
+                }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                console.log('Login successful:', data);
+                // Navigate to dashboard or other appropriate page
+                navigate('/dashboard'); // Adjust the path as needed for your routing
+            } else {
+                setError(data.message || 'Login failed. Please check your credentials.');
+            }
+        } catch (error) {
+            setError('Network error or server is not responding.');
+        }
     };
 
     return (
@@ -32,6 +54,7 @@ const Login = () => {
                         Log into Flip!
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                        {error && <Alert severity="error">{error}</Alert>}
                         <TextField
                             margin="normal"
                             required
@@ -66,10 +89,10 @@ const Login = () => {
                         </Button>
                         <Box display="flex" justifyContent="space-between" alignItems="center">
                             <Link href="#" variant="body2">
-                            Forgot Password?
+                                Forgot Password?
                             </Link>
                             <Link href="/signup" variant="body2"> {/* This href directs to the Signup page */}
-                            Not Registered? Sign Up Now
+                                Not Registered? Sign Up Now
                             </Link>
                         </Box>
                     </Box>
