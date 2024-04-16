@@ -7,7 +7,7 @@ const Footer = () => {
         <Box component="footer" sx={{ bgcolor: 'background.paper', py: 3 }}>
             <Container maxWidth="lg">
                 <Typography variant="body1" align="center">
-                    My Flashcard App © {new Date().getFullYear()}
+                    Flip! © {new Date().getFullYear()}
                 </Typography>
             </Container>
         </Box>
