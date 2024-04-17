@@ -16,20 +16,21 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <AppContainer />
+      <Layout />
     </Router>
   );
 }
 
-function AppContainer() {
+function Layout() {
   const location = useLocation();
-  const showHeader = location.pathname !== '/login';  // Adjust condition as needed
+  const showHeader = location.pathname !== '/login';
 
   return (
     <div className="appContainer">
       {showHeader && <Header />}
       <main className="mainContent">
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
@@ -40,7 +41,6 @@ function AppContainer() {
           <Route path="/study/:setId" element={<StudyPage />} />
           <Route path="/create" element={<CreateOrEditFlashcard />} />
           <Route path="/edit/:id" element={<CreateOrEditFlashcard />} />
-          {/* Additional routes as necessary */}
         </Routes>
       </main>
       <Footer />
