@@ -76,9 +76,9 @@ const Signup = () => {
                         margin="normal"
                         required
                         fullWidth
-                        id="emailOrPhone"
-                        label="Email or Phone"
-                        name="emailOrPhone"
+                        id="email"
+                        label="Email"
+                        name="email"
                         autoComplete="email"
                         autoFocus
                         value={signupData.emailOrPhone}
