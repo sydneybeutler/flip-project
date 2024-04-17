@@ -5,7 +5,7 @@ import Header from '../components/Header'; // Make sure the path is correct
 
 const Login = () => {
     const [credentials, setCredentials] = useState({
-        emailOrPhone: '',
+        email: '',
         password: '',
     });
     const [error, setError] = useState('');
@@ -27,7 +27,7 @@ const Login = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    emailOrPhone: credentials.emailOrPhone,
+                    email: credentials.email,
                     password: credentials.password,
                 }),
             });
@@ -72,7 +72,7 @@ const Login = () => {
                             name="email"
                             autoComplete="email"
                             autoFocus
-                            value={credentials.emailOrPhone}
+                            value={credentials.email}
                             onChange={handleChange}
                             variant="outlined"
                         />
