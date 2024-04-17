@@ -5,7 +5,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 const Signup = () => {
     const [signupData, setSignupData] = useState({
-        emailOrPhone: '',
+        email: '',
         password: '',
         confirmPassword: ''
     });
@@ -37,7 +37,7 @@ const Signup = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    emailOrPhone: signupData.emailOrPhone,
+                    email: signupData.email,
                     password: signupData.password,
                 }),
             });
@@ -81,7 +81,7 @@ const Signup = () => {
                         name="email"
                         autoComplete="email"
                         autoFocus
-                        value={signupData.emailOrPhone}
+                        value={signupData.email}
                         onChange={handleChange}
                         variant="outlined"
                     />
