@@ -32,7 +32,7 @@ export const fetchFlashcards = createAsyncThunk(
 );
 
 export const deleteFlashcard = createAsyncThunk(
-  'api/fetchFlashcards',
+  'api/deleteFlashcard',
   async (_, { getState }) => {
     const { token, id } = getState().auth; // Destructure to get token and user ID from auth state
     const response = await fetch('/api/flashcards/${id}', {
