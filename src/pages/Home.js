@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Typography, Button, Box, Paper, Grid, Card, CardContent, CardMedia } from '@mui/material';
 import HeroImage from '../hero-image.jpg';  // Assuming you have an image in your assets
+import {redirectToLogin } from './authService';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Home = () => {
                                 variant="contained" 
                                 color="primary" 
                                 sx={{ mr: 2 }}
-                                onClick={() => navigate('/signup')}
+                                onClick={() => redirectToLogin()}
                             >
                                 Get Started
                             </Button>

@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import SimpleFlashcard from '../components/Flashcard';
-import { Typography } from '@mui/material';  // Import Typography here
+import { Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { selectToken } from '../reducers/authSlice'; 
+import axios from 'axios';
 
 const StudyPage = () => {
-  const { setId } = useParams();
-  const navigate = useNavigate();
-  const [studySet, setStudySet] = useState(null);
+    const { setId } = useParams();
+    const navigate = useNavigate();
+    const token = useSelector(selectToken);
+    const [studySet, setStudySet] = useState(null);
 
-  useEffect(() => {
+    useEffect(() => {
     const studySets = JSON.parse(localStorage.getItem('studySets')) || [];
     const setToStudy = studySets.find(set => set.id === setId);
     if (!setToStudy) {
@@ -23,3 +27,4 @@ const StudyPage = () => {
 };
 
 export default StudyPage;
+

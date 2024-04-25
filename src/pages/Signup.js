@@ -1,57 +1,15 @@
-import React, { useState } from 'react';
-import { Container, Typography, TextField, Button, Box, Paper, Link, CssBaseline, Alert } from '@mui/material';
+import React from 'react';
+import { Container, Typography, Button, Box, Paper, Link, CssBaseline } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
+import { redirectToSignUp } from './authService'; 
 
 const Signup = () => {
-    const [signupData, setSignupData] = useState({
-        email: '',
-        password: '',
-        confirmPassword: ''
-    });
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState(false);
-
     const navigate = useNavigate();
 
-    const handleChange = (event) => {
-        setSignupData({
-            ...signupData,
-            [event.target.name]: event.target.value,
-        });
-    };
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        // Simple password match check
-        if (signupData.password !== signupData.confirmPassword) {
-            setError('Passwords do not match.');
-            return;
-        }
-
-        // Example POST request to your future Django API
-        try {
-            const response = await fetch('http://your-django-api-url/api/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: signupData.email,
-                    password: signupData.password,
-                }),
-            });
-
-            const data = await response.json();
-            if (data.success) {
-                setSuccess(true);
-                navigate('/login'); // Navigate to login page on successful signup
-            } else {
-                setError(data.message || 'Failed to register. Please try again.');
-            }
-        } catch (error) {
-            setError('Network error or server is not responding.');
-        }
+    // Handle the redirection to the AWS Cognito signup page
+    const handleSignUp = () => {
+        redirectToSignUp();  // Redirects to AWS Cognito's hosted UI for signup
     };
 
     return (
@@ -69,55 +27,15 @@ const Signup = () => {
                 <Typography component="h1" variant="h4" color="primary" gutterBottom>
                     Create Account on Flip!
                 </Typography>
-                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, width: '100%' }}>
-                    {error && <Alert severity="error" sx={{ width: '100%' }}>{error}</Alert>}
-                    {success && <Alert severity="success" sx={{ width: '100%' }}>Registration successful!</Alert>}
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                        value={signupData.email}
-                        onChange={handleChange}
-                        variant="outlined"
-                    />
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="new-password"
-                        value={signupData.password}
-                        onChange={handleChange}
-                        variant="outlined"
-                    />
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="confirmPassword"
-                        label="Confirm Password"
-                        type="password"
-                        id="confirmPassword"
-                        value={signupData.confirmPassword}
-                        onChange={handleChange}
-                        variant="outlined"
-                    />
+                <Box sx={{ mt: 1, width: '100%' }}>
                     <Button
-                        type="submit"
+                        onClick={handleSignUp}
                         fullWidth
                         variant="contained"
                         color="primary"
                         sx={{ mt: 3, mb: 2, py: 1.5 }}
                     >
-                        Sign Up
+                        Sign Up with Cognito
                     </Button>
                     <Box textAlign="center" sx={{ mt: 2 }}>
                         <Link component={RouterLink} to="/login" variant="body2">
@@ -136,3 +54,4 @@ const Signup = () => {
 };
 
 export default Signup;
+

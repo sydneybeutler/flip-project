@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { redirectToLogin } from '../pages/authService';
 
 const Header = ({ showLoginButton = true }) => {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Header = ({ showLoginButton = true }) => {
                 
                 {/* Conditionally displayed login button */}
                 {showLoginButton && (
-                    <Button color="inherit" onClick={() => navigate('/login')}>
+                    <Button color="inherit" onClick={() => redirectToLogin()}>
                         Login
                     </Button>
                 )}

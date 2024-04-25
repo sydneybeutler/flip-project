@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container, Paper, List, ListItem, ListItemButton, ListItemText, IconButton, Button, Typography, Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SchoolIcon from '@mui/icons-material/School'; // Import an icon for the "Study" button
 import { useNavigate } from 'react-router-dom';
+import { fetchFlashcards, deleteFlashcard } from "../reducers/flashcardSlice"
 
 const Dashboard = () => {
-    const [studySets, setStudySets] = useState([]);
+    //const [studySets, setStudySets] = useState([]);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const studySets = useSelector(state => state.api.Flashcards);
 
     useEffect(() => {
-        const loadedStudySets = JSON.parse(localStorage.getItem('studySets')) || [];
-        setStudySets(loadedStudySets);
+        dispatch(fetchFlashcards);
+        //const loadedStudySets = JSON.parse(localStorage.getItem('studySets')) || [];
+        //setStudySets(loadedStudySets);
     }, []);
 
     const handleDelete = (setId) => {
         const confirmation = window.confirm('Are you sure you want to delete this study set?');
         if (confirmation) {
-            const updatedStudySets = studySets.filter(set => set.id !== setId);
+            dispatch(deleteFlashcard)
+            /*const updatedStudySets = studySets.filter(set => set.id !== setId);
             localStorage.setItem('studySets', JSON.stringify(updatedStudySets));
-            setStudySets(updatedStudySets);
+            setStudySets(updatedStudySets);*/
         }
     };
 

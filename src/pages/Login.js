@@ -1,47 +1,17 @@
-import React, { useState } from 'react';
-import { Container, Typography, TextField, Button, Box, Link, Paper, Alert, CssBaseline } from '@mui/material';
+import React from 'react';
+import { Container, Typography, Box, Link, Paper, CssBaseline, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/Header'; // Make sure the path is correct
+import Header from '../components/Header';  // Make sure the path is correct 
 
 const Login = () => {
-    const [credentials, setCredentials] = useState({
-        email: '',
-        password: '',
-    });
-    const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleChange = (event) => {
-        setCredentials({
-            ...credentials,
-            [event.target.name]: event.target.value,
-        });
+    const handleLogin = () => {
+     
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await fetch('http://your-django-api-url/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: credentials.email,
-                    password: credentials.password,
-                }),
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                console.log('Login successful:', data);
-                navigate('/dashboard');
-            } else {
-                setError(data.message || 'Login failed. Please check your credentials.');
-            }
-        } catch (error) {
-            setError('Network error or server is not responding.');
-        }
+    const handleSignUp = () => {
+        navigate('/signup');  // Navigate to your sign-up page (adjust the route as necessary)
     };
 
     return (
@@ -61,48 +31,21 @@ const Login = () => {
                     <Typography component="h1" variant="h4" color="primary" gutterBottom>
                         Log into Flip!
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, width: '100%' }}>
-                        {error && <Alert severity="error" sx={{ width: '100%' }}>{error}</Alert>}
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            value={credentials.email}
-                            onChange={handleChange}
-                            variant="outlined"
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            value={credentials.password}
-                            onChange={handleChange}
-                            variant="outlined"
-                        />
+                    <Box sx={{ mt: 1, width: '100%' }}>
                         <Button
-                            type="submit"
+                            onClick={handleLogin}
                             fullWidth
                             variant="contained"
                             color="primary"
                             sx={{ mt: 3, mb: 2, py: 1.5 }}
                         >
-                            Sign In
+                            Sign In with Cognito
                         </Button>
                         <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mt: 2 }}>
-                            <Link href="#" variant="body2">
+                            <Link onClick={handleLogin} variant="body2" style={{cursor: 'pointer'}}>
                                 Forgot Password?
                             </Link>
-                            <Link href="/signup" variant="body2">
+                            <Link onClick={handleSignUp} variant="body2" style={{cursor: 'pointer'}}>
                                 Not Registered? Sign Up Now
                             </Link>
                         </Box>
@@ -114,3 +57,4 @@ const Login = () => {
 };
 
 export default Login;
+

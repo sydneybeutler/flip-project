@@ -12,12 +12,16 @@ import StudyPage from './pages/StudyPage';
 import CreateOrEditFlashcard from './pages/CreateOrEditFlashcard';
 import Home from './pages/Home';
 import './App.css';
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
-  return (
+  return ( 
+  <Provider store={store}>
     <Router>
       <Layout />
     </Router>
+  </Provider>
   );
 }
 
